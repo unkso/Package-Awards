@@ -1,0 +1,13 @@
+package:
+    destination: com.clanunknownsoldiers.plugin.awards.tar
+    files:
+        exclude:
+            - README.md
+            - .gitignore
+            - .travis.yml
+        tarball:
+            - files
+            - templates
+            - acpTemplates
+        folder:
+            - language

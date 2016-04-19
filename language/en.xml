@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd" languagecode="de">
+    <category name="wcf.page">
+        <item name="wcf.page.awards.title"><![CDATA[Awards List]]></item>
+        <item name="wcf.page.training.awards"><![CDATA[Awards List]]></item>
+    </category>
+
+    <category name="wcf.user">
+        <item name="wcf.user.profile.menu.awards"><![CDATA[My Awards]]></item>
+    </category>
+
+    <category name="wcf.acp.menu">
+		<item name="wcf.acp.menu.link.clan.award"><![CDATA[Awards]]></item>
+        <item name="wcf.acp.menu.link.clan.award.list"><![CDATA[List awards]]></item>
+        <item name="wcf.acp.menu.link.clan.award.add"><![CDATA[Add new award]]></item>
+        <item name="wcf.acp.menu.link.clan.award.category.list"><![CDATA[List Award Categories]]></item>
+        <item name="wcf.acp.menu.link.clan.award.category.add"><![CDATA[Add Award Category]]></item>
+	</category>
+
+	<category name="wcf.acp.award">
+        <item name="wcf.acp.award.category.general"><![CDATA[General]]></item>
+        <item name="wcf.acp.award.category.add"><![CDATA[Add Category]]></item>
+        <item name="wcf.acp.award.category.edit"><![CDATA[Edit Category]]></item>
+
+        <item name="wcf.acp.award.action.add"><![CDATA[Add award]]></item>
+        <item name="wcf.acp.award.action.edit"><![CDATA[Edit award]]></item>
+        <item name="wcf.acp.award.action.list"><![CDATA[Awards]]></item>
+        <item name="wcf.acp.award.action.add"><![CDATA[Create new award]]></item>
+        <item name="wcf.acp.award.action.general"><![CDATA[General]]></item>
+        <item name="wcf.acp.award.action.tiers"><![CDATA[Tiers]]></item>
+        <item name="wcf.acp.award.action.images"><![CDATA[Images]]></item>
+        <item name="wcf.acp.award.action.name"><![CDATA[Award name]]></item>
+        <item name="wcf.acp.award.action.category"><![CDATA[Category]]></item>
+        <item name="wcf.acp.award.action.category.description"><![CDATA[The category this award will show up in in the award overview.]]></item>
+        <item name="wcf.acp.award.action.description"><![CDATA[Award description]]></item>
+        <item name="wcf.acp.award.action.relevance"><![CDATA[Award relevance]]></item>
+        <item name="wcf.acp.award.action.relevance.description"><![CDATA[The higher an award's relevance, the earlier it is shown in the list.]]></item>
+        <item name="wcf.acp.award.action.isActive"><![CDATA[Award is currently active]]></item>
+        <item name="wcf.acp.award.action.isActive.description"><![CDATA[Inactive awards will be hidden in the award overview.]]></item>
+        <item name="wcf.acp.award.action.previousTier"><![CDATA[Previous tier]]></item>
+        <item name="wcf.acp.award.action.thisTier"><![CDATA[This tier]]></item>
+        <item name="wcf.acp.award.action.thisTier.description"><![CDATA[The tier of this award (i.e. 1 for Good Conduct Award [1])]]></item>
+        <item name="wcf.acp.award.action.images.preview"><![CDATA[Preview]]></item>
+        <item name="wcf.acp.award.action.ribbon"><![CDATA[Ribbon]]></item>
+        <item name="wcf.acp.award.action.award"><![CDATA[Award]]></item>
+		<item name="wcf.acp.award.category.issue"><![CDATA[Issue award]]></item>
+		<item name="wcf.acp.award.action.issue.new"><![CDATA[Issue award]]></item>
+		<item name="wcf.acp.award.action.issued.list"><![CDATA[Issued awards]]></item>
+		<item name="wcf.acp.award.action.reason"><![CDATA[Reason]]></item>
+		<item name="wcf.acp.award.noItems"><![CDATA[This award has never been issued.]]></item>
+		<item name="wcf.acp.award.action.issueTime"><![CDATA[Date]]></item>
+		<item name="wcf.acp.award.action.issued"><![CDATA[Users wearing this award]]></item>
+	</category>
+
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.category.admin.clan.award"><![CDATA[Awards]]></item>
+		<item name="wcf.acp.group.option.admin.clan.award.canManageAwards"><![CDATA[Can manage awards]]></item>
+		<item name="wcf.acp.group.option.admin.clan.award.canIssueAwards"><![CDATA[Can issue awards]]></item>
+	</category>
+</language>

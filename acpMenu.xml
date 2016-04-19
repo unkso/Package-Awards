@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/acpMenu.xsd">
+	<import>
+
+
+		<acpmenuitem name="wcf.acp.menu.link.clan.award">
+			<parent>wcf.acp.menu.link.clan</parent>
+		</acpmenuitem>
+		
+		<acpmenuitem name="wcf.acp.menu.link.clan.award.list">
+			<controller><![CDATA[wcf\acp\page\AwardListPage]]></controller>
+			<parent>wcf.acp.menu.link.clan.award</parent>
+			<permissions>admin.clan.award.canManageAwards</permissions>
+			<showorder>1</showorder>
+		</acpmenuitem>
+
+		<acpmenuitem name="wcf.acp.menu.link.clan.award.add">
+			<controller><![CDATA[wcf\acp\form\AwardAddForm]]></controller>
+			<parent>wcf.acp.menu.link.clan.award</parent>
+			<permissions>admin.clan.award.canManageAwards</permissions>
+			<showorder>2</showorder>
+		</acpmenuitem>
+
+		<acpmenuitem name="wcf.acp.menu.link.clan.award.category.list">
+			<controller><![CDATA[wcf\acp\page\AwardCategoryListPage]]></controller>
+			<parent>wcf.acp.menu.link.clan.award</parent>
+			<permissions>admin.clan.award.canManageAwards</permissions>
+			<showorder>3</showorder>
+		</acpmenuitem>
+
+		<acpmenuitem name="wcf.acp.menu.link.clan.award.category.add">
+			<controller><![CDATA[wcf\acp\form\AwardCategoryAddForm]]></controller>
+			<parent>wcf.acp.menu.link.clan.award</parent>
+			<permissions>admin.clan.award.canManageAwards</permissions>
+			<showorder>4</showorder>
+		</acpmenuitem>
+
+	</import>
+</data>
