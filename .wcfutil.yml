@@ -6,8 +6,6 @@ package:
             - .gitignore
             - .travis.yml
         tarball:
+            - acpTemplates: acptemplates
             - files
             - templates
-            - acpTemplates
-        folder:
-            - language

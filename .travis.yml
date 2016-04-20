@@ -8,6 +8,9 @@ git:
   depth: 5
 env:
   global:
-    - IDENTIFIER=com.clanunknownsoldiers.plugin.awards
+    - IDENTIFIER=com.clanunknownsoldiers.plugin.awards.tar
+    - FTP_HOST=ftp://thunderstorm.padarom.io/server/uploads/
+notifications:
+      email: false
 
-after_success: curl --ftp-create-dirs -T {$IDENTIFIER}.tar -u $FTP_USER:$FTP_PASSWORD $FTP_HOST
+after_success: curl --ftp-create-dirs -T $IDENTIFIER -u $FTP_USER:$FTP_PASSWORD $FTP_HOST
