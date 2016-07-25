@@ -1,8 +1,10 @@
-<?php namespace wcf\system\category;
+<?php
+namespace wcf\system\category;
 
 use wcf\system\WCF;
 
-class AwardCategoryType extends AbstractCategoryType {
+class AwardCategoryType extends AbstractCategoryType
+{
     protected $langVarPrefix = 'wcf.acp.clan.award.category';
 
     protected $hasDescription = true;

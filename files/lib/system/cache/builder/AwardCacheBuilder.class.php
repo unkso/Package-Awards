@@ -1,4 +1,5 @@
-<?php namespace wcf\system\cache\builder;
+<?php
+namespace wcf\system\cache\builder;
 
 use wcf\data\award\Award;
 use wcf\system\WCF;
@@ -11,7 +12,7 @@ class AwardCacheBuilder extends AbstractCacheBuilder
             'awards' => []
         ];
 
-        $sql = sprintf("SELECT * FROM wcf%s_%s ORDER BY displayOrder", WCF_N, Award::getDatabaseTableName());
+        $sql = 'SELECT * FROM ' . Award::getDatabaseTableName() . ' ORDER BY relevance';
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute();
         while ($object = $statement->fetchObject('wcf\data\award\Award')) {

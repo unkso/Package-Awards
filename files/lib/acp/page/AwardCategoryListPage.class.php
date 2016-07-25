@@ -1,4 +1,5 @@
-<?php namespace wcf\acp\page;
+<?php
+namespace wcf\acp\page;
 
 class AwardCategoryListPage extends AbstractCategoryListPage
 {

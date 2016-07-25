@@ -1,4 +1,5 @@
-<?php namespace wcf\acp\form;
+<?php
+namespace wcf\acp\form;
 
 class AwardCategoryAddForm extends AbstractCategoryAddForm
 {
@@ -7,5 +8,4 @@ class AwardCategoryAddForm extends AbstractCategoryAddForm
 	public $objectTypeName = 'com.clanunknownsoldiers.award.category';
 
 	public $pageTitle = 'wcf.acp.clan.award.category.add';
-
 }

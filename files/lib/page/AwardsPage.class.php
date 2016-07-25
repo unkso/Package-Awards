@@ -1,4 +1,5 @@
-<?php namespace wcf\page;
+<?php
+namespace wcf\page;
 
 use wcf\data\award\AwardCache;
 use wcf\system\WCF;
@@ -9,7 +10,8 @@ class AwardsPage extends AbstractPage
 
   public $templateName = 'awardList';
 
-  public function assignVariables() {
+  public function assignVariables()
+  {
     parent::assignVariables();
 
     WCF::getTPL()->assign(array(

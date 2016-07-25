@@ -1,4 +1,5 @@
-<?php namespace wcf\data\award;
+<?php
+namespace wcf\data\award;
 
 use wcf\data\award\category\AwardCategory;
 use wcf\system\cache\builder\AwardCacheBuilder;

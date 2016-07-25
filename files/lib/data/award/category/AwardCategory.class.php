@@ -1,4 +1,5 @@
-<?php namespace wcf\data\award\category;
+<?php
+namespace wcf\data\award\category;
 
 use wcf\data\award\AwardCache;
 use wcf\data\category\AbstractDecoratedCategory;

@@ -1,7 +1,9 @@
-<?php namespace wcf\data\award;
+<?php
+namespace wcf\data\award;
 
 use wcf\data\DatabaseObjectEditor;
 
-class AwardEditor extends DatabaseObjectEditor {
-	protected static $baseClass = 'wcf\data\award\Award';
+class AwardEditor extends DatabaseObjectEditor
+{
+	protected static $baseClass = Award::class;
 }

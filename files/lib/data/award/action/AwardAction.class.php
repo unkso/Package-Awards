@@ -1,12 +1,14 @@
-<?php namespace wcf\data\award;
+<?php
+namespace wcf\data\award\action;
 
 use wcf\data\AbstractDatabaseObjectAction;
+use wcf\data\award\AwardEditor;
 use wcf\data\IToggleAction;
 use wcf\system\WCF;
 
 class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction
 {
-    protected $className = 'wcf\data\award\AwardEditor';
+    protected $className = AwardEditor::class;
 
     protected $permissionsDelete = ['admin.clan.award.canManageAwards'];
 
@@ -38,25 +40,7 @@ class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction
         ];
     }
 
-    public function getIssuedAwardPreview()
-    {
-        $award = null;
-
-        WCF::getTPL()->assign([
-            'award' => $award,
-        ]);
-
-        return [
-            'template' => WCF::getTPL()->fetch('issuedAwardPreview'),
-        ];
-    }
-
     public function validateGetAwardPreview()
-    {
-        return true;
-    }
-
-    public function validateGetIssuedAwardPreview()
     {
         return true;
     }

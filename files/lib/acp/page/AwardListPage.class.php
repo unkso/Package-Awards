@@ -1,5 +1,7 @@
-<?php namespace wcf\acp\page;
+<?php
+namespace wcf\acp\page;
 
+use wcf\data\award\AwardList;
 use wcf\page\SortablePage;
 
 class AwardListPage extends SortablePage
@@ -10,7 +12,7 @@ class AwardListPage extends SortablePage
 
 	public $neededPermissions = ['admin.clan.award.canManageAwards'];
 
-	public $objectListClassName = 'wcf\data\award\action\AwardActionList';
+	public $objectListClassName = AwardList::class;
 
 	public $templateName = 'awardList';
 
