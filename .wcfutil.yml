@@ -1,5 +1,5 @@
 package:
-    destination: ../../../com.clanunknownsoldiers.plugin.awards.tar
+    destination: com.clanunknownsoldiers.plugin.awards.tar
     files:
         exclude:
             - README.md
