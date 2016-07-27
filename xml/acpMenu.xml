@@ -28,12 +28,5 @@
 			<showorder>3</showorder>
 		</acpmenuitem>
 
-		<acpmenuitem name="wcf.acp.menu.link.clan.award.category.add">
-			<controller><![CDATA[wcf\acp\form\AwardCategoryAddForm]]></controller>
-			<parent>wcf.acp.menu.link.clan.award</parent>
-			<permissions>admin.clan.award.canManageAwards</permissions>
-			<showorder>4</showorder>
-		</acpmenuitem>
-
 	</import>
 </data>

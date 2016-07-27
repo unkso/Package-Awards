@@ -3,8 +3,8 @@
 	<packageinformation>
 		<packagename>=US= Awards System</packagename>
 		<packagedescription>An award management system suited for the needs of the Unknown Soldiers.</packagedescription>
-		<version>0.2.0</version>
-		<date>2016-07-25</date>
+		<version>0.2.1</version>
+		<date>2016-07-27</date>
 	</packageinformation>
 	
 	<authorinformation>
@@ -45,5 +45,9 @@
 
 		<instruction type="sql">sql/update/010-020/010-drop-old.sql</instruction>
 		<instruction type="sql">sql/install/010-award.sql</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="0.2.0">
+		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 	</instructions>
 </package>
