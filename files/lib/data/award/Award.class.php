@@ -13,19 +13,23 @@ class Award extends DatabaseObject
 
 	protected static $cache = null;
 
+    protected $tiers;
+
 	protected static function getCache()
 	{
 		if (self::$cache === null) {
 			self::$cache = AwardCacheBuilder::getInstance()->getData();
 		}
+
+		return self::$cache;
 	}
 
 	public static function getAwardByID($awardID)
 	{
-		self::getCache();
+	    $cache = self::getCache();
 
-		if (isset(self::$cache['awards'][$awardID])) {
-			return self::$cache['awards'][$awardID];
+		if (isset($cache['awards'][$awardID])) {
+			return $cache['awards'][$awardID];
 		}
 
 		return null;
@@ -34,6 +38,22 @@ class Award extends DatabaseObject
 	public function getCategory()
     {
         return new AwardCategory(new Category($this->categoryID));
+    }
+
+    public function getTiers()
+    {
+        if ($this->tiers) {
+            return $this->tiers;
+        }
+
+        $tiers = [];
+        foreach (self::getCache()['tiers'] as $tier) {
+            if ($tier->awardID = $this->awardID) {
+                $tiers[] = $tier;
+            }
+        }
+
+        return $this->tiers = $tiers;
     }
 }
 

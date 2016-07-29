@@ -2,6 +2,7 @@
 namespace wcf\system\cache\builder;
 
 use wcf\data\award\Award;
+use wcf\data\award\AwardTier;
 use wcf\system\WCF;
 
 class AwardCacheBuilder extends AbstractCacheBuilder
@@ -9,14 +10,34 @@ class AwardCacheBuilder extends AbstractCacheBuilder
     protected function rebuild(array $parameters)
     {
         $data = [
-            'awards' => []
+            'awards' => $this->getAwards(),
+            'tiers' => $this->getTiers(),
         ];
 
-        $sql = 'SELECT * FROM ' . Award::getDatabaseTableName() . ' ORDER BY relevance';
+        return $data;
+    }
+
+    protected function getAwards()
+    {
+        $data = [];
+        $sql = 'SELECT * FROM ' . Award::getDatabaseTableName() . ' ORDER BY awardID ASC';
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute();
-        while ($object = $statement->fetchObject('wcf\data\award\Award')) {
-            $data['awards'][$object->awardID] = $object;
+        while ($object = $statement->fetchObject(Award::class)) {
+            $data[$object->awardID] = $object;
+        }
+
+        return $data;
+    }
+
+    protected function getTiers()
+    {
+        $data = [];
+        $sql = 'SELECT * FROM ' . AwardTier::getDatabaseTableName() . ' ORDER BY tierID ASC';
+        $statement = WCF::getDB()->prepareStatement($sql);
+        $statement->execute();
+        while ($object = $statement->fetchObject(Award::class)) {
+            $data[$object->awardID] = $object;
         }
 
         return $data;

@@ -1,5 +1,38 @@
 {include file='header' pageTitle='wcf.acp.award.action.'|concat:$action}
 
+<script data-relocate="true">
+	//<![CDATA[
+	$(function() {
+		WCF.TabMenu.init();
+
+		$("#tierTabList").on("click", "#addTier", function() {
+			var template = $("#new-tier-template").clone();
+
+			var key = 0;
+			while ($("#tier-" + key).length) {
+				key++;
+			}
+
+			// Add block element
+			template.attr('id', 'tier-' + key);
+			template.css('display', 'block');
+			template.html(template.html().replace(/-replace-/g, key));
+			$("#tiers").append(template);
+
+			// Add tab
+			var tab = $("#new-tier-tab-template").clone();
+			tab.attr('id', 'tier-' + key);
+			tab.css('display', 'inline-block');
+			tab.html(tab.html().replace(/-replace-/g, 'tier-' + key));
+			tab.insertBefore("#tierTabList li:last-child");
+
+			WCF.TabMenu.reload();
+			$("#tierTabList").tabs().tabs('refresh');
+		});
+	});
+	//]]>
+</script>
+
 <header class="boxHeadline">
 	<h1>{lang}wcf.acp.award.action.{$action}{/lang}</h1>
 </header>
@@ -92,57 +125,42 @@
 
 		<fieldset>
 			<legend>{lang}wcf.acp.award.action.tiers{/lang}</legend>
-			<dl>
-				<dt><label for="parentID">{lang}wcf.acp.award.action.previousTier{/lang}</label></dt>
-				<dd>
-					<select name="parentID" id="previousTierID">
-						<option value="0">{lang}wcf.global.noSelection{/lang}</option>
-						{foreach from=$awardList item=award}
-							<option value="{@$award->awardID}"{if $award->awardID == $previousTierID} selected="selected"{/if}>{$award->title}</option>
-						{/foreach}
-					</select>
-					{if $errorField == 'previousTierID'}
-						<small class="innerError">
-							{lang}wcf.global.form.error.{$errorType}{/lang}
-						</small>
-					{/if}
-				</dd>
-			</dl>
-			<dl>
-				<dt><label for="tier">{lang}wcf.acp.award.action.thisTier{/lang}</label></dt>
-				<dd>
-					<input type="number" id="tier" name="tier" value="{if $tier|or:$object->tier}{$tier|or:$object->isDisabled}{else}1{/if}" class="tiny" min="0" />
-					<small>{lang}wcf.acp.award.action.thisTier.description{/lang}</small>
-				</dd>
-			</dl>
-		</fieldset>
 
-		<fieldset>
-			<legend>{lang}wcf.acp.award.action.images{/lang}</legend>
-			<dl>
-				<dt><label for="ribbon">{lang}wcf.acp.award.action.ribbon{/lang}</label></dt>
-				<dd>
-					<input id="ribbon" name="ribbonURL" value="{$ribbonURL|or:$object->ribbonURL}" type="text" class="long" />
-					{if $object && $object->ribbonURL}<small>{lang}wcf.acp.award.action.images.preview{/lang}: <img src="{$object->ribbonURL}" alt="{$object->ribbonURL}"></small>{/if}
-					{if $errorField == 'ribbonURL'}
-						<small class="innerError">
-							{lang}wcf.global.form.error.{$errorType}{/lang}
-						</small>
-					{/if}
-				</dd>
-			</dl>
-			<dl>
-				<dt><label for="award">{lang}wcf.acp.award.action.award{/lang}</label></dt>
-				<dd>
-					<input id="award" name="awardURL" value="{$awardURL|or:$object->awardURL}" type="text" class="long" />
-					{if $object && $object->awardURL}<small>{lang}wcf.acp.award.action.images.preview{/lang}: <img src="{$object->awardURL}" alt="{$object->title}"></small>{/if}
-					{if $errorField == 'awardURL'}
-						<small class="innerError">
-							{lang}wcf.global.form.error.{$errorType}{/lang}
-						</small>
-					{/if}
-				</dd>
-			</dl>
+			<div id="tiers" class="tabMenuContainer" data-active="{$activeTabMenuItem}" data-store="activeTabMenuItem">
+				<nav class="tabMenu">
+					<ul id="tierTabList">
+						{if $action == 'edit'}
+							{foreach from=$object->getTiers() item=tier key=key}
+								<li><a href="{@$__wcf->getAnchor('tier-')|concat:$key}">ABC</a></li>
+							{/foreach}
+							<li id="addTier"><i class="icon icon16 icon-plus"></i></li>
+						{else}
+							<li><a href="{@$__wcf->getAnchor('first-tier')}">Main Tier</a></li>
+							<li id="addTier"><a><i class="icon icon16 icon-plus"></i></a></li>
+						{/if}
+					</ul>
+				</nav>
+
+				{if $action == 'edit'}
+					{foreach from=$object->getTiers() item=tier key=key}
+						<div id="tier-{$key}" class="container containerPadding tabMenuContainer tabMenuContent">
+							{include file='awardTierInformation' suffix=$key tier=$tier}
+						</div>
+					{/foreach}
+				{else}
+					<div id="first-tier" class="container containerPadding tabMenuContainer tabMenuContent">
+						{include file='awardTierInformation' suffix='new'}
+					</div>
+				{/if}
+
+				<!-- Templates for Tier list -->
+				<div id="new-tier-template" class="container containerPadding tabMenuContainer tabMenuContent" style="display:none;">
+					{include file='awardTierInformation' suffix='-replace-'}
+				</div>
+				<li id="new-tier-tab-template" style="display:none;"><a href="{@$__wcf->getAnchor('-replace-')}">Main Tier</a></li>
+				<!-- Templates for Tier list -->
+
+			</div>
 		</fieldset>
 
 		<div class="formSubmit">

@@ -15,14 +15,14 @@ class AwardCategory extends AbstractDecoratedCategory implements \Countable, ITr
 
     /**
      * list of assigned ranks
-     * @var	array<\wcf\data\rank\Rank>
+     * @var	array<\wcf\data\award\Award>
      */
     public $awards = null;
 
     /**
      * Loads associated ranks from cache.
      */
-    public function loadRanks() {
+    public function loadAwards() {
         if ($this->awards === null) {
             $this->awards = AwardCache::getInstance()->getCategoryAwards($this->categoryID ?: null);
             $this->indexToObject = array_keys($this->awards);

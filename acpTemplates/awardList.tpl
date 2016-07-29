@@ -14,11 +14,11 @@
 </header>
 
 <div class="contentNavigation">
-	{pages print=true assign=pagesLinks controller="AwardActionList" link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder"}
+	{pages print=true assign=pagesLinks controller="AwardList" link="pageNo=%d&sortField=$sortField&sortOrder=$sortOrder"}
 	
 	<nav>
 		<ul>
-			<li><a href="{link controller='AwardActionAdd'}{/link}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.award.action.add{/lang}</span></a></li>
+			<li><a href="{link controller='AwardAdd'}{/link}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.award.action.add{/lang}</span></a></li>
 			
 			{event name='contentNavigationButtonsTop'}
 		</ul>
@@ -74,7 +74,7 @@
 		
 		<nav>
 			<ul>
-				<li><a href="{link controller='AwardActionAdd'}{/link}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.award.action.add{/lang}</span></a></li>
+				<li><a href="{link controller='AwardAdd'}{/link}" class="button"><span class="icon icon16 icon-plus"></span> <span>{lang}wcf.acp.award.action.add{/lang}</span></a></li>
 				
 				{event name='contentNavigationButtonsBottom'}
 			</ul>

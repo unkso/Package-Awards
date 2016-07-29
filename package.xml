@@ -3,8 +3,8 @@
 	<packageinformation>
 		<packagename>=US= Awards System</packagename>
 		<packagedescription>An award management system suited for the needs of the Unknown Soldiers.</packagedescription>
-		<version>0.2.1</version>
-		<date>2016-07-27</date>
+		<version>0.3.0</version>
+		<date>2016-07-29</date>
 	</packageinformation>
 	
 	<authorinformation>
@@ -15,7 +15,7 @@
 	<requiredpackages>
 		<requiredpackage minversion="2.0.7">com.woltlab.wcf</requiredpackage>
 		<requiredpackage minversion="4.0.0">com.woltlab.wbb</requiredpackage>
-		<requiredpackage minversion="0.9.3">io.padarom.devtools.formbuilder</requiredpackage>
+		<requiredpackage minversion="0.10.0">io.padarom.devtools.formbuilder</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
@@ -30,6 +30,7 @@
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 
 		<instruction type="sql">sql/install/010-award.sql</instruction>
+		<instruction type="sql">sql/install/020-tier.sql</instruction>
 	</instructions>
 
 	<instructions type="update" fromversion="0.1.0">
@@ -49,5 +50,10 @@
 
 	<instructions type="update" fromversion="0.2.0">
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="0.2.1">
+		<instruction type="sql">sql/update/021-030/010-drop-old.sql</instruction>
+		<instruction type="sql">sql/install/010-award.sql</instruction>
 	</instructions>
 </package>

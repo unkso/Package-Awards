@@ -3,6 +3,7 @@ package:
     files:
         exclude:
             - README.md
+            - .git
             - .gitignore
             - .travis.yml
         tarball:
