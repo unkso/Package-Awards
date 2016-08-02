@@ -16,5 +16,5 @@ class AwardListPage extends SortablePage
 
 	public $templateName = 'awardList';
 
-	public $validSortFields = ['awardID', 'title', 'description'];
+	public $validSortFields = ['awardID', 'title', 'categoryID', 'relevance'];
 }

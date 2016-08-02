@@ -48,7 +48,7 @@ class Award extends DatabaseObject
 
         $tiers = [];
         foreach (self::getCache()['tiers'] as $tier) {
-            if ($tier->awardID = $this->awardID) {
+            if ($tier->awardID == $this->awardID) {
                 $tiers[] = $tier;
             }
         }

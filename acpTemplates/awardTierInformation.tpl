@@ -1,4 +1,15 @@
 <fieldset>
+    <input type="hidden" name="tierID[]" value="{if $tier|isset}{$tier->tierID}{else}-1{/if}">
+
+    {if $award|isset}
+        <dl>
+            <dt>Final name</dt>
+            <dd>
+                {$award->title|concat:$tier->levelSuffix}
+            </dd>
+        </dl>
+    {/if}
+
     <dl>
         <dt><label for="suffix-{$suffix}">Suffix</label></dt>
         <dd>
@@ -29,7 +40,7 @@
         <dt><label for="description-{$suffix}">Description</label></dt>
         <dd>
             <textarea id="description-{$suffix}" name="tierDescription[]" cols="40" rows="5">{if $tier|isset}{$tier->description}{/if}</textarea>
-            {if $errorField == 'description'}
+            {if $errorField == 'tierDescription'}
                 <small class="innerError">
                     {lang}wcf.global.form.error.{$errorType}{/lang}
                 </small>
@@ -41,22 +52,15 @@
         <dt><label for="ribbonURL-{$suffix}">Ribbon URL</label></dt>
         <dd>
             <input id="ribbonURL-{$suffix}" name="ribbonURL[]" value="{if $tier|isset}{$tier->ribbonURL}{/if}" type="text" class="medium" />
-            {if $errorField == 'title'}
+            {if $errorField == 'ribbonURL'}
                 <small class="innerError">
                     {lang}wcf.global.form.error.{$errorType}{/lang}
                 </small>
             {/if}
-        </dd>
-    </dl>
 
-    <dl>
-        <dt><label for="awardURL-{$suffix}">Award URL</label></dt>
-        <dd>
-            <input id="awardURL-{$suffix}" name="awardURL[]" value="{if $tier|isset}{$tier->awardURL}{/if}" type="text" class="medium" />
-            {if $errorField == 'title'}
-                <small class="innerError">
-                    {lang}wcf.global.form.error.{$errorType}{/lang}
-                </small>
+            {if $tier|isset}
+                <small>Preview:</small>
+                <img src="{$tier->ribbonURL}">
             {/if}
         </dd>
     </dl>

@@ -6,7 +6,7 @@
 	<script data-relocate="true">
 		//<![CDATA[
 		$(function() {
-			new WCF.Action.Delete('wcf\\data\\award\\action\\AwardAction', '.jsAwardActionRow');
+			new WCF.Action.Delete('wcf\\data\\award\\action\\AwardAction', '.jsAwardActionRow .jsDeleteButton');
 		});
 		//]]>
 	</script>
@@ -36,9 +36,8 @@
 				<tr>
 					<th class="columnID{if $sortField == 'awardID'} active {@$sortOrder}{/if}" colspan="2"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=awardID&sortOrder={if $sortField == 'awardID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.global.objectID{/lang}</a></th>
 					<th class="columnTitle{if $sortField == 'title'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=title&sortOrder={if $sortField == 'title' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.award.action.name{/lang}</a></th>
-					<th class="columnCategory{if $sortField == 'category'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=category&sortOrder={if $sortField == 'category' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.award.action.category{/lang}</a></th>
-					<th class="columnRibbon{if $sortField == 'ribbon'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}{/link}">{lang}wcf.acp.award.action.ribbon{/lang}</a></th>
-					<th class="columnDescription{if $sortField == 'description'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=description&sortOrder={if $sortField == 'description' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.award.action.description{/lang}</a></th>
+					<th class="columnCategory{if $sortField == 'categoryID'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=categoryID&sortOrder={if $sortField == 'categoryID' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.award.action.category{/lang}</a></th>
+					<th class="columnRibbon"><a>{lang}wcf.acp.award.action.ribbon{/lang}</a></th>
 					<th class="columnRelevance{if $sortField == 'relevance'} active {@$sortOrder}{/if}"><a href="{link controller='AwardList'}pageNo={@$pageNo}&sortField=relevance&sortOrder={if $sortField == 'relevance' && $sortOrder == 'ASC'}DESC{else}ASC{/if}{/link}">{lang}wcf.acp.award.action.relevance{/lang}</a></th>
 
 					{event name='columnHeads'}
@@ -57,8 +56,7 @@
 						<td class="columnID">{$award->awardID}</td>
 						<td class="columnTitle">{$award->title}</td>
 						<td class="columnCategory">{$award->getCategory()->getTitle()}</td>
-						<td class="columnRibbon"><img src="{$award->ribbonURL}" alt="{$award->title}"></td>
-						<td class="columnDescription">{$award->description}</td>
+						<td class="columnRibbon"><img src="{$award->getTiers()[0]->ribbonURL}" alt="{$award->title}"></td>
 						<td class="columnRelevance">{#$award->relevance}</td>
 
 						{event name='columns'}

@@ -1,7 +1,9 @@
 <?php
 namespace wcf\acp\form;
 
+use wcf\data\award\action\AwardTierAction;
 use wcf\data\award\Award;
+use wcf\data\award\AwardTier;
 use wcf\data\award\category\AwardCategory;
 use wcf\data\category\Category;
 use wcf\data\category\CategoryNodeTree;
@@ -18,6 +20,8 @@ class AwardAddForm extends FormBuilder
 
     protected $categoryNodeTree;
 
+    protected $usePersonalSave = true;
+
     public function getAttributes()
     {
         return [
@@ -25,20 +29,17 @@ class AwardAddForm extends FormBuilder
                 'type' => 'int',
                 'rule' => 'custom:validateCategory',
             ],
-            'previousTierID' => [
-                'type' => 'int',
-                'required' => false,
-                'rule' => 'class:' . Award::class,
-            ],
             'description' => [
                 'type' => 'string',
                 'required' => false,
             ],
             'title' => 'string',
+            'awardURL' => [
+                'type' => 'string',
+                'required' => false,
+                'rule' => 'url',
+            ],
             'relevance' => 'int',
-            'awardURL' => 'string|url',
-            'ribbonURL' => 'string|url',
-            'tier' => 'int',
             'isDisabled' => [
                 'type' => 'bool',
                 'required' => false,
@@ -64,11 +65,81 @@ class AwardAddForm extends FormBuilder
         return Award::class;
     }
 
+    public function validate()
+    {
+        parent::validate();
+    }
+
     public function save()
     {
         parent::save();
 
+        $attributes = $this->valueList;
+
+        $action = new AwardAction([$this->object], $this->modelAction, [
+            'data' => [
+                'categoryID' => $attributes['categoryID'],
+                'description' => $attributes['description'],
+                'title' => $attributes['title'],
+                'relevance' => $attributes['relevance'],
+                'awardURL' => $attributes['awardURL'],
+                'isDisabled' => $attributes['isDisabled'] ? 0 : 1,
+                // This is the other way around. In the template we're asking if the award is active.
+            ],
+        ]);
+
+        $executedAction = $action->executeAction();
+        $awardID = $this->modelAction == 'update' ? $this->object->awardID : $executedAction['returnValues']->awardID;
+
+        $tiers = $this->getSubmittedTiers();
+        foreach ($tiers as $tier) {
+            $modelAction = 'create';
+            $objects = [];
+            if ($tier['tierID'] > 0) {
+                $modelAction = 'update';
+                $objects = [new AwardTier($tier['tierID'])];
+            }
+
+            $tierAction = new AwardTierAction($objects, $modelAction, [
+                'data' => [
+                    'awardID' => $awardID,
+                    'description' => $tier['tierDescription'],
+                    'ribbonURL' => $tier['ribbonURL'],
+                    'level' => $tier['level'],
+                    'levelSuffix' => $tier['suffix'],
+                ],
+            ]);
+
+            $tierAction->executeAction();
+        }
+
+        if ($this->modelAction == 'create') {
+            $this->valueList = [];
+            $this->object = new Award(null);
+        }
+
+        $this->saved();
+
         AwardCacheBuilder::getInstance()->reset();
+
+        WCF::getTPL()->assign([
+            'success' => true,
+        ]);
+    }
+
+    protected function getSubmittedTiers()
+    {
+        $parameters = ['tierID', 'suffix', 'level', 'tierDescription', 'ribbonURL'];
+        $values = [];
+        for ($i = 0; $i < count($_REQUEST['suffix']); $i++) {
+            $object = [];
+            foreach ($parameters as $parameter) {
+                $object[$parameter] = $_REQUEST[$parameter][$i];
+            }
+            $values[] = $object;
+        }
+        
+        return $values;
     }
 
     public function readData()
@@ -82,16 +153,10 @@ class AwardAddForm extends FormBuilder
     {
         parent::assignVariables();
 
-        $awards = AwardCacheBuilder::getInstance()->getData(array(), 'awards');
-        foreach ($awards as $index => $award) {
-            if ($award->awardID == $this->object->awardID) {
-                unset($awards[$index]);
-                break;
-            }
-        }
+        $newTier = isset($_REQUEST['newtier']);
 
         WCF::getTPL()->assign([
-            'awardList' => $awards,
+            'newTier' => $newTier,
             'categoryList' => $this->categoryNodeTree->getIterator(),
         ]);
     }

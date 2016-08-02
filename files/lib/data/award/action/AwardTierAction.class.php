@@ -2,12 +2,12 @@
 namespace wcf\data\award\action;
 
 use wcf\data\AbstractDatabaseObjectAction;
-use wcf\data\award\AwardEditor;
+use wcf\data\award\AwardTierEditor;
 use wcf\data\IToggleAction;
 
-class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction
+class AwardTierAction extends AbstractDatabaseObjectAction implements IToggleAction
 {
-    protected $className = AwardEditor::class;
+    protected $className = AwardTierEditor::class;
 
     protected $permissionsDelete = ['admin.clan.award.canManageAwards'];
 

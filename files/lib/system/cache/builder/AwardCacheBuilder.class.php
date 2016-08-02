@@ -36,8 +36,8 @@ class AwardCacheBuilder extends AbstractCacheBuilder
         $sql = 'SELECT * FROM ' . AwardTier::getDatabaseTableName() . ' ORDER BY tierID ASC';
         $statement = WCF::getDB()->prepareStatement($sql);
         $statement->execute();
-        while ($object = $statement->fetchObject(Award::class)) {
-            $data[$object->awardID] = $object;
+        while ($object = $statement->fetchObject(AwardTier::class)) {
+            $data[$object->tierID] = $object;
         }
 
         return $data;
