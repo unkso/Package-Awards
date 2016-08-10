@@ -19,7 +19,6 @@ class AwardCache extends SingletonFactory
         $this->cachedAwards = AwardCacheBuilder::getInstance()->getData(array(), 'awards');
 
         $awardCategories = CategoryHandler::getInstance()->getCategories('com.clanunknownsoldiers.award.category');
-
         foreach ($awardCategories as $key => $awardCategory) {
             $this->cachedCategories[$key] = new AwardCategory($awardCategory);
         }
@@ -39,7 +38,6 @@ class AwardCache extends SingletonFactory
     {
         foreach ($this->cachedCategories as $key => $category) {
             if (!$category->isDisabled) {
-                $category->loadAwards();
 
                 if (count($category)) {
                     $this->visibleCategories[$key] = $category;

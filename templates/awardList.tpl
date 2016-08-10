@@ -6,48 +6,54 @@
 </head>
 
 <body id="tpl{$templateName|ucfirst}">
-{include file='header'}
-
-<header class="boxHeadline">
-    <h1>{lang}wcf.page.awards.title{/lang}</h1>
-</header>
+{include file='header' title='wcf.page.awards.title'|language paddingBottom=30 light=true}
 
 {include file='userNotice'}
 
 <div class="container marginTop">
-    <ul class="containerList awardList">
-        <li class="awardBox">
-            <div>
-                <div class="containerHeadline">
-                    <h3>Test</h3>
 
-                    {if $awards|count}
-                        <table>
-                            <tbody>
-                            {foreach from=$awards item=award}
-                                <tr class="jsAwardActionRow">
-                                    <td class="columnID">{$award[awardID]}</td>
-                                    <td class="columnTitle">{$award[title]}</td>
-                                    <td class="columnCategory">{$award[category]}</td>
-                                    <td class="columnRibbon"><img src="{$award[ribbonURL]}" alt="{$award[title]}"></td>
-                                    <td class="columnDescription">{$award[description]}</td>
-                                    <td class="columnRelevance">{#$award[relevance]}</td>
-                                    <td class="columnIssued">{#$award[issued]}</td>
+    <div class="row marginTop">
+        <div class="col-md-4">
+            <div class="tabs tabs-vertical tabs-left tabs-navigation">
+                <ul class="nav nav-tabs col-sm-3">
+                    {foreach from=$awards item=category key=key}
+                        {counter assign=tabNo name=tabNo print=false}
+                        <li {if $tabNo == 1}class="active"{/if}>
+                            <a href="#tabCategory{$key}" data-toggle="tab">{$category['title']}</a>
+                        </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
 
-                                    {event name='columns'}
-                                </tr>
-                            {/foreach}
-                            </tbody>
-                        </table>
+        <div class="col-md-8">
+            {foreach from=$awards item=category key=key}
+                {counter assign=paneNo name=paneNo print=false}
+
+                <div class="tab-pane tab-pane-navigation {if $paneNo == 1}active{/if}" id="tabCategory{$key}">
+                    {if $category['awards']|count}
+                        {foreach from=$category['awards'] item=award}
+                            <div class="col-md-4">
+                                <p>
+                                    <img src="{$award->awardURL}">
+                                </p>
+                                <p>
+                                    {$award->title}
+                                </p>
+                            </div>
+                        {/foreach}
                     {else}
-                        <p class="info">{lang}wcf.global.noItems{/lang}</p>
+                        <div class="alert alert-warning">
+                            <strong>Ouch!</strong> We don't currently have any publicly visible awards in this category. Sorry about that.
+                        </div>
                     {/if}
                 </div>
-            </div>
-        </li>
-    </ul>
+            {/foreach}
+        </div>
+    </div>
+
 </div>
 
-{include file='footer'}
+{include file='footer' skipBreadcrumbs=true}
 </body>
 </html>

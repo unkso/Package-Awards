@@ -1,7 +1,7 @@
 <fieldset>
     <input type="hidden" name="tierID[]" value="{if $tier|isset}{$tier->tierID}{else}-1{/if}">
 
-    {if $award|isset}
+    {if $award|isset && $tier|isset}
         <dl>
             <dt>Final name</dt>
             <dd>

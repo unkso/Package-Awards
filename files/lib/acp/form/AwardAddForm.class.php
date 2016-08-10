@@ -120,8 +120,6 @@ class AwardAddForm extends FormBuilder
 
         $this->saved();
 
-        AwardCacheBuilder::getInstance()->reset();
-
         WCF::getTPL()->assign([
             'success' => true,
         ]);
