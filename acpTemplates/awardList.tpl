@@ -8,6 +8,8 @@
 		$(function() {
 			new WCF.Action.Delete('wcf\\data\\award\\action\\AwardAction', '.jsAwardActionRow .jsDeleteButton');
 		});
+
+		{event name='afterJavascriptInitialization'}
 		//]]>
 	</script>
 

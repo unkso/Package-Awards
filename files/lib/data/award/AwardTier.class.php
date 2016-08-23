@@ -35,7 +35,7 @@ class AwardTier extends DatabaseObject
 
 	public function getAward()
     {
-        return new Award($this->awardID);
+        return AwardCache::getInstance()->getAwards()[$this->awardID];
     }
 }
 
