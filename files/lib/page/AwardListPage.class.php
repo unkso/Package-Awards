@@ -20,6 +20,7 @@ class AwardListPage extends AbstractPage
         foreach ($cache->getCategories() as $category) {
             $map[$category->categoryID] = [
                 'title' => $category->getTitle(),
+                'disabled' => $category->isDisabled,
                 'awards' => [],
             ];
         }

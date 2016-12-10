@@ -13,7 +13,7 @@ use wcf\system\cache\builder\AwardCacheBuilder;
 use wcf\system\WCF;
 
 class AwardAddForm extends FormBuilder
-{
+{ 
     public $activeMenuItem = 'wcf.acp.menu.link.clan.award.add';
 
     public $neededPermissions = ['admin.clan.award.canManageAwards'];
