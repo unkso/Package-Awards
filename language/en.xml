@@ -55,6 +55,5 @@
 	<category name="wcf.acp.group">
 		<item name="wcf.acp.group.option.category.admin.clan.award"><![CDATA[Awards]]></item>
 		<item name="wcf.acp.group.option.admin.clan.award.canManageAwards"><![CDATA[Can manage awards]]></item>
-		<item name="wcf.acp.group.option.admin.clan.award.canIssueAwards"><![CDATA[Can issue awards]]></item>
 	</category>
 </language>
