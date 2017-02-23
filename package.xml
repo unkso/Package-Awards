@@ -3,8 +3,8 @@
 	<packageinformation>
 		<packagename>=US= Awards System</packagename>
 		<packagedescription>An award management system suited for the needs of the Unknown Soldiers.</packagedescription>
-		<version>0.3.0</version>
-		<date>2016-07-29</date>
+		<version>1.0.0</version>
+		<date>2017-02-23</date>
 	</packageinformation>
 	
 	<authorinformation>
@@ -15,7 +15,6 @@
 	<requiredpackages>
 		<requiredpackage minversion="2.0.7">com.woltlab.wcf</requiredpackage>
 		<requiredpackage minversion="4.0.0">com.woltlab.wbb</requiredpackage>
-		<requiredpackage minversion="0.10.0">io.padarom.devtools.formbuilder</requiredpackage>
 	</requiredpackages>
 
 	<instructions type="install">
@@ -29,31 +28,10 @@
 		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
 		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
 
-		<instruction type="sql">sql/install/010-award.sql</instruction>
-		<instruction type="sql">sql/install/020-tier.sql</instruction>
+		<instruction type="sql">sql/install.sql</instruction>
 	</instructions>
 
-	<instructions type="update" fromversion="0.1.0">
-		<instruction type="acpTemplate">acptemplates.tar</instruction>
-		<instruction type="template">templates.tar</instruction>
-		<instruction type="file">files.tar</instruction>
-		<instruction type="language">language/*.xml</instruction>
-
-		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
-		<instruction type="objectType">xml/objectType.xml</instruction>
-		<instruction type="userGroupOption">xml/userGroupOption.xml</instruction>
-		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
-
-		<instruction type="sql">sql/update/010-020/010-drop-old.sql</instruction>
-		<instruction type="sql">sql/install/010-award.sql</instruction>
-	</instructions>
-
-	<instructions type="update" fromversion="0.2.0">
-		<instruction type="acpMenu">xml/acpMenu.xml</instruction>
-	</instructions>
-
-	<instructions type="update" fromversion="0.2.1">
-		<instruction type="sql">sql/update/021-030/010-drop-old.sql</instruction>
-		<instruction type="sql">sql/install/010-award.sql</instruction>
+	<instructions type="update" fromversion="0.3.0">
+		<instruction type="sql">sql/update_030-100.sql</instruction>
 	</instructions>
 </package>

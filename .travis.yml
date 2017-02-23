@@ -1,7 +1,7 @@
 language: node_js
 node_js: "5"
-before_script: npm install -g wcfutils
-script: wcfutils
+before_script: npm install -g wspackager
+script: wspackager
 branches:
   only: master
 git:
