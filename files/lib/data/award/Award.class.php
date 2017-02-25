@@ -15,32 +15,36 @@ class Award extends DatabaseObject
 
     protected $tiers;
 
-	protected static function getCache()
-	{
-		if (self::$cache === null) {
-			self::$cache = AwardCacheBuilder::getInstance()->getData();
-		}
-
-		return self::$cache;
-	}
-
 	public static function getAwardByID($awardID)
 	{
-	    $cache = self::getCache();
+	    $cache = AwardCache::getInstance()->getAwards();
 
-		if (isset($cache['awards'][$awardID])) {
-			return $cache['awards'][$awardID];
+		if (isset($cache[$awardID])) {
+			return $cache[$awardID];
 		}
 
 		return null;
 	}
+
+    public static function getAwardByName($name)
+    {
+        $cache = AwardCache::getInstance()->getAwards();
+
+        foreach ($cache as $award) {
+            if ($award->title == $name) {
+                return $award;
+            }
+        }
+
+        return null;
+    }
 
 	public function getCategory()
     {
         return new AwardCategory(new Category($this->categoryID));
     }
 
-    private static function getURLBase()
+    public static function getURLBase()
     {
         return 'http://static.clanunknownsoldiers.us/images/new/';
     }

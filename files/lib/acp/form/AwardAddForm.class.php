@@ -1,161 +1,149 @@
 <?php
 namespace wcf\acp\form;
 
-use wcf\data\award\action\AwardTierAction;
-use wcf\data\award\Award;
-use wcf\data\award\AwardTier;
-use wcf\data\award\category\AwardCategory;
-use wcf\data\category\Category;
-use wcf\data\category\CategoryNodeTree;
-use wcf\form\FormBuilder;
 use wcf\data\award\action\AwardAction;
+use wcf\data\award\Award;
+use wcf\data\award\AwardCache;
+use wcf\form\AbstractForm;
 use wcf\system\cache\builder\AwardCacheBuilder;
+use wcf\system\exception\UserInputException;
 use wcf\system\WCF;
+use wcf\util\StringUtil;
 
-class AwardAddForm extends FormBuilder
-{ 
+class AwardAddForm extends AbstractForm
+{
     public $activeMenuItem = 'wcf.acp.menu.link.clan.award.add';
 
     public $neededPermissions = ['admin.clan.award.canManageAwards'];
 
-    protected $categoryNodeTree;
+    public $title = '';
 
-    protected $usePersonalSave = true;
+    public $description = '';
 
-    public function getAttributes()
+    public $requirements = '';
+
+    public $categoryID = 0;
+
+    public $medalURL = '';
+
+    public $ribbonURL = '';
+
+    public $sortOrder = '1';
+
+    public $isTiered = false;
+
+    public $isHidden = false;
+
+    public $isDisabled = false;
+
+    public $replacesAward = '';
+
+    public $replacesAwardID = 0;
+
+    public function assignVariables()
     {
-        return [
-            'categoryID' => [
-                'type' => 'int',
-                'rule' => 'custom:validateCategory',
-            ],
-            'description' => [
-                'type' => 'string',
-                'required' => false,
-            ],
-            'title' => 'string',
-            'awardURL' => [
-                'type' => 'string',
-                'required' => false,
-                'rule' => 'url',
-            ],
-            'relevance' => 'int',
-            'isDisabled' => [
-                'type' => 'bool',
-                'required' => false,
-            ]
-        ];
+        parent::assignVariables();
+
+        WCF::getTPL()->assign([
+            'action' => 'add',
+            'categoryList' => AwardCache::getInstance()->getCategories(),
+            'title' => $this->title,
+            'description' => $this->description,
+            'requirements' => $this->requirements,
+            'categoryID' => $this->categoryID,
+            'medalURL' => $this->medalURL,
+            'ribbonURL' => $this->ribbonURL,
+            'sortOrder' => $this->sortOrder,
+            'isTiered' => $this->isTiered,
+            'isHidden' => $this->isHidden,
+            'isDisabled' => $this->isDisabled,
+            'replacesAward' => $this->replacesAward,
+            'urlBasePath' => Award::getURLBase(),
+        ]);
     }
 
-    protected function validateCategory($id)
+    public function readFormParameters()
     {
-        $category = new Category($id);
-        $awardCategory = new AwardCategory($category);
+        parent::readFormParameters();
 
-        return $awardCategory->categoryID;
-    }
+        if (isset($_POST['title'])) $this->title = StringUtil::trim($_POST['title']);
+        if (isset($_POST['description'])) $this->description = StringUtil::trim($_POST['description']);
+        if (isset($_POST['requirements'])) $this->requirements = StringUtil::trim($_POST['requirements']);
+        if (isset($_POST['medalURL'])) $this->medalURL = StringUtil::trim($_POST['medalURL']);
+        if (isset($_POST['ribbonURL'])) $this->ribbonURL = StringUtil::trim($_POST['ribbonURL']);
+        if (isset($_POST['categoryID'])) $this->categoryID = intval($_POST['categoryID']);
+        if (isset($_POST['sortOrder'])) $this->sortOrder = intval($_POST['sortOrder']);
+        if (isset($_POST['isTiered'])) $this->isTiered = intval($_POST['isTiered']);
+        if (isset($_POST['isHidden'])) $this->isHidden = intval($_POST['isHidden']);
+        if (isset($_POST['isDisabled'])) $this->isDisabled = intval($_POST['isDisabled']);
 
-    protected function getObjectActionType()
-    {
-        return AwardAction::class;
-    }
-
-    protected function getObjectTypeName()
-    {
-        return Award::class;
+        if ($this->isTiered) {
+            if (isset($_POST['replacesAward'])) $this->replacesAward = StringUtil::trim($_POST['replacesAward']);
+            $award = Award::getAwardByName($this->replacesAward);
+            if ($award) $this->replacesAwardID = $award->awardID;
+        }
     }
 
     public function validate()
     {
         parent::validate();
+
+        if (empty($this->title)) {
+            throw new UserInputException('title');
+        }
+
+        $categories = AwardCache::getInstance()->getCategories();
+        if (empty($this->categoryID) || !isset($categories[$this->categoryID])) {
+            throw new UserInputException('categoryID');
+        }
+
+        if (empty($this->sortOrder)) {
+            throw new UserInputException('sortOrder');
+        }
+
+        if (empty($this->ribbonURL)) {
+            throw new UserInputException('ribbonURL');
+        }
+
+        if ($this->isTiered && empty($this->replacesAward)) {
+            throw new UserInputException('replacesAward');
+        }
+
+        if ($this->isTiered && !$this->replacesAwardID) {
+            throw new UserInputException('replacesAward', 'notavailable');
+        }
     }
 
     public function save()
     {
         parent::save();
 
-        $attributes = $this->valueList;
-
-        $action = new AwardAction([$this->object], $this->modelAction, [
-            'data' => [
-                'categoryID' => $attributes['categoryID'],
-                'description' => $attributes['description'],
-                'title' => $attributes['title'],
-                'relevance' => $attributes['relevance'],
-                'awardURL' => $attributes['awardURL'],
-                'isDisabled' => $attributes['isDisabled'] ? 0 : 1,
-                // This is the other way around. In the template we're asking if the award is active.
-            ],
+        $this->objectAction = new AwardAction([], 'create', [
+            'data' => array_merge($this->additionalFields, [
+                'title' => $this->title,
+                'description' => $this->description,
+                'requirements' => $this->requirements,
+                'medalURL' => $this->medalURL,
+                'ribbonURL' => $this->ribbonURL,
+                'replacesAward' => $this->replacesAwardID,
+                'categoryID' => $this->categoryID,
+                'sortOrder' => $this->sortOrder,
+                'isTiered' => $this->isTiered ? 1 : 0,
+                'isHidden' => $this->isHidden ? 1 : 0,
+                'isDisabled' => $this->isDisabled ? 1 : 0,
+            ])
         ]);
 
-        $executedAction = $action->executeAction();
-        $awardID = $this->modelAction == 'update' ? $this->object->awardID : $executedAction['returnValues']->awardID;
-
-        $tiers = $this->getSubmittedTiers();
-        foreach ($tiers as $tier) {
-            $modelAction = 'create';
-            $objects = [];
-            if ($tier['tierID'] > 0) {
-                $modelAction = 'update';
-                $objects = [new AwardTier($tier['tierID'])];
-            }
-
-            $tierAction = new AwardTierAction($objects, $modelAction, [
-                'data' => [
-                    'awardID' => $awardID,
-                    'description' => $tier['tierDescription'],
-                    'ribbonURL' => $tier['ribbonURL'],
-                    'level' => $tier['level'],
-                    'levelSuffix' => $tier['suffix'],
-                ],
-            ]);
-
-            $tierAction->executeAction();
-        }
-
-        if ($this->modelAction == 'create') {
-            $this->valueList = [];
-            $this->object = new Award(null);
-        }
-
+        $this->objectAction->executeAction();
         $this->saved();
 
-        WCF::getTPL()->assign([
-            'success' => true,
-        ]);
-    }
+        AwardCacheBuilder::getInstance()->reset();
 
-    protected function getSubmittedTiers()
-    {
-        $parameters = ['tierID', 'suffix', 'level', 'tierDescription', 'ribbonURL'];
-        $values = [];
-        for ($i = 0; $i < count($_REQUEST['suffix']); $i++) {
-            $object = [];
-            foreach ($parameters as $parameter) {
-                $object[$parameter] = $_REQUEST[$parameter][$i];
-            }
-            $values[] = $object;
-        }
-        
-        return $values;
-    }
+        $this->title = $this->description = $this->requirements = $this->medalURL = $this->ribbonURL = $this->replacesAward = '';
+        $this->isTiered = $this->isHidden = $this->isDisabled = false;
+        $this->replacesAwardID = $this->categoryID = 0;
+        $this->sortOrder = 1;
 
-    public function readData()
-    {
-        parent::readData();
-
-        $this->categoryNodeTree = new CategoryNodeTree('com.clanunknownsoldiers.award.category', 0, true);
-    }
-
-    public function assignVariables()
-    {
-        parent::assignVariables();
-
-        $newTier = isset($_REQUEST['newtier']);
-
-        WCF::getTPL()->assign([
-            'newTier' => $newTier,
-            'categoryList' => $this->categoryNodeTree->getIterator(),
-        ]);
+        WCF::getTPL()->assign('success', true);
     }
 }

@@ -58,8 +58,8 @@
 						<td class="columnID">{$award->awardID}</td>
 						<td class="columnTitle">{$award->title}</td>
 						<td class="columnCategory">{$award->getCategory()->getTitle()}</td>
-						<td class="columnRibbon"><img src="{$award->getTiers()[0]->ribbonURL}" alt="{$award->title}"></td>
-						<td class="columnRelevance">{#$award->relevance}</td>
+						<td class="columnRibbon"><img src="{$award->getRibbonURL()}" alt="{$award->title}"></td>
+						<td class="columnRelevance">{#$award->sortOrder}</td>
 
 						{event name='columns'}
 					</tr>

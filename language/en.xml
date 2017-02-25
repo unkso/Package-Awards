@@ -5,10 +5,6 @@
         <item name="wcf.page.training.awards"><![CDATA[Awards]]></item>
     </category>
 
-    <category name="wcf.user">
-        <item name="wcf.user.profile.menu.awards"><![CDATA[My Awards]]></item>
-    </category>
-
     <category name="wcf.acp.menu">
 		<item name="wcf.acp.menu.link.clan.award"><![CDATA[Awards]]></item>
         <item name="wcf.acp.menu.link.clan.award.list"><![CDATA[List awards]]></item>
@@ -22,34 +18,28 @@
         <item name="wcf.acp.award.category.add"><![CDATA[Add Category]]></item>
         <item name="wcf.acp.award.category.edit"><![CDATA[Edit Category]]></item>
 
+        <item name="wcf.acp.award.action.settings"><![CDATA[Misc settings]]></item>
         <item name="wcf.acp.award.action.add"><![CDATA[Add award]]></item>
         <item name="wcf.acp.award.action.edit"><![CDATA[Edit award]]></item>
         <item name="wcf.acp.award.action.list"><![CDATA[Awards]]></item>
         <item name="wcf.acp.award.action.add"><![CDATA[Create new award]]></item>
         <item name="wcf.acp.award.action.general"><![CDATA[General]]></item>
-        <item name="wcf.acp.award.action.tiers"><![CDATA[Tiers]]></item>
         <item name="wcf.acp.award.action.images"><![CDATA[Images]]></item>
-        <item name="wcf.acp.award.action.name"><![CDATA[Award name]]></item>
+        <item name="wcf.acp.award.action.name"><![CDATA[Title]]></item>
         <item name="wcf.acp.award.action.category"><![CDATA[Category]]></item>
-        <item name="wcf.acp.award.action.category.description"><![CDATA[The category this award will show up in in the award overview.]]></item>
-        <item name="wcf.acp.award.action.description"><![CDATA[Award description]]></item>
-        <item name="wcf.acp.award.action.relevance"><![CDATA[Award relevance]]></item>
-        <item name="wcf.acp.award.action.relevance.description"><![CDATA[The higher an award's relevance, the earlier it is shown in the list.]]></item>
-        <item name="wcf.acp.award.action.isActive"><![CDATA[Award is currently active]]></item>
-        <item name="wcf.acp.award.action.isActive.description"><![CDATA[Inactive awards will be hidden in the award overview.]]></item>
-        <item name="wcf.acp.award.action.previousTier"><![CDATA[Previous tier]]></item>
-        <item name="wcf.acp.award.action.thisTier"><![CDATA[This tier]]></item>
-        <item name="wcf.acp.award.action.thisTier.description"><![CDATA[The tier of this award (i.e. 1 for Good Conduct Award [1])]]></item>
-        <item name="wcf.acp.award.action.images.preview"><![CDATA[Preview]]></item>
-        <item name="wcf.acp.award.action.ribbon"><![CDATA[Ribbon]]></item>
-        <item name="wcf.acp.award.action.award"><![CDATA[Award]]></item>
-		<item name="wcf.acp.award.category.issue"><![CDATA[Issue award]]></item>
-		<item name="wcf.acp.award.action.issue.new"><![CDATA[Issue award]]></item>
-		<item name="wcf.acp.award.action.issued.list"><![CDATA[Issued awards]]></item>
-		<item name="wcf.acp.award.action.reason"><![CDATA[Reason]]></item>
-		<item name="wcf.acp.award.noItems"><![CDATA[This award has never been issued.]]></item>
-		<item name="wcf.acp.award.action.issueTime"><![CDATA[Date]]></item>
-		<item name="wcf.acp.award.action.issued"><![CDATA[Users wearing this award]]></item>
+        <item name="wcf.acp.award.action.description"><![CDATA[Description]]></item>
+        <item name="wcf.acp.award.action.requirements"><![CDATA[Requirements]]></item>
+        <item name="wcf.acp.award.action.sortOrder"><![CDATA[Sort Order]]></item>
+        <item name="wcf.acp.award.action.sortOrder.description"><![CDATA[Awards with a lower sort order are shown first]]></item>
+        <item name="wcf.acp.award.action.replacesAward"><![CDATA[Replaces award]]></item>
+        <item name="wcf.acp.award.action.replacesAward.description"><![CDATA[If a user has this award, the specified one won't display anymore (only works when the award uses a tiered system)]]></item>
+        <item name="wcf.acp.award.action.error.replacesAward.notavailable"><![CDATA[There is no award with this name.]]></item>
+        <item name="wcf.acp.award.action.ribbon"><![CDATA[Ribbon URL]]></item>
+        <item name="wcf.acp.award.action.medal"><![CDATA[Medal URL]]></item>
+        <item name="wcf.acp.award.action.isTiered"><![CDATA[Use tiered system]]></item>
+        <item name="wcf.acp.award.action.isHidden"><![CDATA[Hide from Awards Overview page]]></item>
+        <item name="wcf.acp.award.action.isDisabled"><![CDATA[Is Disabled]]></item>
+        <item name="wcf.acp.award.action.isDisabled.description"><![CDATA[Award will still show up on a users jacket, but cannot be issued anymore]]></item>
 	</category>
 
 	<category name="wcf.acp.group">

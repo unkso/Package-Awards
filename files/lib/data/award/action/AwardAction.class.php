@@ -2,15 +2,11 @@
 namespace wcf\data\award\action;
 
 use wcf\data\AbstractDatabaseObjectAction;
-use wcf\data\award\Award;
 use wcf\data\award\AwardCache;
 use wcf\data\award\AwardEditor;
 use wcf\data\ISearchAction;
-use wcf\data\IToggleAction;
-use wcf\data\user\group\UserGroup;
-use wcf\data\user\UserProfileList;
 
-class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction, ISearchAction
+class AwardAction extends AbstractDatabaseObjectAction implements ISearchAction
 {
     protected $className = AwardEditor::class;
 
@@ -18,21 +14,7 @@ class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction,
 
     protected $permissionsUpdate = ['admin.clan.award.canManageAwards'];
 
-    protected $requireACP = ['delete', 'toggle', 'update', 'create'];
-
-    public function toggle()
-    {
-        foreach ($this->objects as $award) {
-            $award->update([
-                'isDisabled' => $award->isDisabled ? 0 : 1,
-            ]);
-        }
-    }
-
-    public function validateToggle()
-    {
-        parent::validateUpdate();
-    }
+    protected $requireACP = ['delete', 'update', 'create'];
 
     /**
      * @see	\wcf\data\ISearchAction::validateGetSearchResultList()
@@ -59,20 +41,9 @@ class AwardAction extends AbstractDatabaseObjectAction implements IToggleAction,
             if (!in_array($award->title, $excludedSearchValues)) {
                 $pos = mb_strripos($award->title, $searchString);
                 if ($pos !== false && $pos == 0) {
-                    $icon = '';
-
-                    $tierList = [];
-                    foreach ($award->getTiers() as $tier) {
-                        $tierList[] = [
-                            'objectID' => $tier->tierID,
-                            'title' => $tier->getName(),
-                        ];
-                    }
-
                     $list[] = [
                         'label' => $award->title,
                         'objectID' => $award->awardID,
-                        'tiers' => $tierList,
                     ];
                 }
             }
