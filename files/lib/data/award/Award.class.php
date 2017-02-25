@@ -40,20 +40,23 @@ class Award extends DatabaseObject
         return new AwardCategory(new Category($this->categoryID));
     }
 
-    public function getTiers()
+    private static function getURLBase()
     {
-        if ($this->tiers) {
-            return $this->tiers;
+        return 'http://static.clanunknownsoldiers.us/images/new/';
+    }
+
+    public function getMedalURL()
+    {
+        if (!$this->medalURL) {
+            return null;
         }
 
-        $tiers = [];
-        foreach (self::getCache()['tiers'] as $tier) {
-            if ($tier->awardID == $this->awardID) {
-                $tiers[] = $tier;
-            }
-        }
+        return self::getURLBase() . $this->medalURL;
+    }
 
-        return $this->tiers = $tiers;
+    public function getRibbonURL()
+    {
+        return self::getURLBase() . $this->ribbonURL;
     }
 }
 

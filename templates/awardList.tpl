@@ -40,10 +40,10 @@
                             {if $category['awards']|count}
                                 <div class="row">
                                     {foreach from=$category['awards'] item=award}
-                                        {if $award->awardURL}
+                                        {if $award->getMedalURL() && !$award->isHidden && !$award->isDisabled}
                                             <div class="col-md-4 text-center">
                                                 <p>
-                                                    <a href="#award-{$award->awardID}" class="popup-with-zoom-anim"><img src="{$award->awardURL}" style="max-height:215px;"></a>
+                                                    <a href="#award-{$award->awardID}" class="popup-with-zoom-anim"><img src="{$award->getMedalURL()}" style="max-height:215px;"></a>
                                                 </p>
                                                 <p style="margin-top:5px;margin-bottom:30px;font-weight:600;">
                                                     {$award->title}
@@ -53,11 +53,16 @@
                                             <div id="award-{$award->awardID}" class="dialog dialog-md zoom-anim-dialog mfp-hide">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <img src="{$award->awardURL}" style="max-height:215px;margin-right:30px;">
+                                                        <img src="{$award->getMedalUrl()}" style="max-height:215px;margin-right:30px;">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h1>{$award->title}</h1>
-                                                        <p>{$award->description}</p>
+                                                        <p style="margin-bottom:15px;"><img src="{$award->getRibbonURL()}"></p>
+                                                        <p>{@$award->description}</p>
+                                                        {if $award->requirements}
+                                                            <h1 style="margin-top:15px;">Requirements:</h1>
+                                                            <p>{@$award->requirements}</p>
+                                                        {/if}
                                                     </div>
                                                 </div>
                                             </div>
