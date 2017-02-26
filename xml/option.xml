@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="https://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.woltlab.com https://www.woltlab.com/XSD/maelstrom/option.xsd">
+    <import>
+        <categories>
+            <category name="clan.general.awards">
+                <parent>clan.general</parent>
+            </category>
+        </categories>
+
+        <options>
+            <!-- Board ID for news -->
+            <option name="unkso_award_images_base_path">
+                <categoryname>clan.general.awards</categoryname>
+                <optiontype>text</optiontype>
+            </option>
+        </options>
+    </import>
+</data>

@@ -6,12 +6,18 @@
     </category>
 
     <category name="wcf.acp.menu">
-		<item name="wcf.acp.menu.link.clan.award"><![CDATA[Awards]]></item>
+        <item name="wcf.acp.menu.link.clan.award"><![CDATA[Awards]]></item>
         <item name="wcf.acp.menu.link.clan.award.list"><![CDATA[List awards]]></item>
         <item name="wcf.acp.menu.link.clan.award.add"><![CDATA[Add Award]]></item>
         <item name="wcf.acp.menu.link.clan.award.category.list"><![CDATA[List Award Categories]]></item>
         <item name="wcf.acp.menu.link.clan.award.category.add"><![CDATA[Add Award Category]]></item>
-	</category>
+    </category>
+
+    <category name="wcf.acp.option">
+        <item name="wcf.acp.option.category.clan.general.awards"><![CDATA[Awards]]></item>
+        <item name="wcf.acp.option.unkso_award_images_base_path"><![CDATA[Award image base path]]></item>
+        <item name="wcf.acp.option.unkso_award_images_base_path.description"><![CDATA[The local path to award images. Award medal and ribbon URLs are considered to be relative to this path.]]></item>
+    </category>
 
 	<category name="wcf.acp.award">
         <item name="wcf.acp.award.category.general"><![CDATA[General]]></item>

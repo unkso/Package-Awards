@@ -58,9 +58,8 @@ class Award extends DatabaseObject
 
     public static function getURLBase()
     {
-        if (WCF::getUser()->userID == 3006) {
-            return '/home3/clanunk1/www/static/images/new/';
-        }
+        // Make sure it ends with a trailing slash.
+        return rtrim(UNKSO_AWARD_IMAGES_BASE_PATH, '/') . '/';
     }
 
     public function getMedalPath()
