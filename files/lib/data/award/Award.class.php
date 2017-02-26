@@ -4,6 +4,8 @@ use wcf\data\award\category\AwardCategory;
 use wcf\data\category\Category;
 use wcf\data\DatabaseObject;
 use wcf\system\cache\builder\AwardCacheBuilder;
+use wcf\system\request\LinkHandler;
+use wcf\system\WCF;
 
 class Award extends DatabaseObject
 {
@@ -44,9 +46,31 @@ class Award extends DatabaseObject
         return new AwardCategory(new Category($this->categoryID));
     }
 
+    public function getSlug()
+    {
+        $slug = $this->title;
+        $slug = strtolower($slug);
+        $slug = str_replace([' ', '_'], '-', $slug);
+        $slug = preg_replace('/([\.:\'#()\[\]]|-&)/', '', $slug);
+
+        return $slug;
+    }
+
     public static function getURLBase()
     {
-        return 'http://static.clanunknownsoldiers.us/images/new/';
+        if (WCF::getUser()->userID == 3006) {
+            return '/home3/clanunk1/www/static/images/new/';
+        }
+    }
+
+    public function getMedalPath()
+    {
+        return self::getURLBase() . $this->medalURL;
+    }
+
+    public function getRibbonPath()
+    {
+        return self::getURLBase() . $this->ribbonURL;
     }
 
     public function getMedalURL()
@@ -55,12 +79,12 @@ class Award extends DatabaseObject
             return null;
         }
 
-        return self::getURLBase() . $this->medalURL;
+        return '//clanunknownsoldiers.com/award-image/medal/' . $this->getSlug() . '.png';
     }
 
-    public function getRibbonURL()
+    public function getRibbonURL($devices = 0)
     {
-        return self::getURLBase() . $this->ribbonURL;
+        return '//clanunknownsoldiers.com/award-image/ribbon/' . $devices . '/' . $this->getSlug() . '.png';
     }
 }
 
