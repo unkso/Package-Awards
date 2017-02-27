@@ -3,18 +3,34 @@ namespace wcf\action;
 
 use wcf\data\award\Award;
 use wcf\data\award\AwardCache;
-use wcf\system\WCF;
 
 class AwardImageAction extends AbstractAction
 {
     public $loginRequired = false;
 
+    protected function tryServingCachedVersion()
+    {
+        $path = self::getCachedFilePath();
+        if (!file_exists($path)) return false;
+
+        $this->sendImageHeaders();
+        echo readfile($path);
+
+        return true;
+    }
+
+    protected static function getCachedFilePath()
+    {
+        $requestKeys = array_keys($_REQUEST);
+        $path = str_replace(['award-image/', '_png'], '', $requestKeys[0]);
+        $cacheDir = WBB_DIR . RELATIVE_WCF_DIR . 'cache/ranks/';
+
+        return $cacheDir . str_replace('/', '-', $path);
+    }
+
     public function execute()
     {
-        $awards = [];
-        foreach (AwardCache::getInstance()->getAwards() as $award) {
-            $awards[$award->getSlug()] = $award;
-        }
+        if ($this->tryServingCachedVersion()) return;
 
         $requestKeys = array_keys($_REQUEST);
         $path = str_replace(['award-image/', '_png'], '', $requestKeys[0]);
@@ -22,6 +38,11 @@ class AwardImageAction extends AbstractAction
         $parts = explode('/', $path);
         $type = $parts[0];
         $slug = $type == 'medal' ? $parts[1] : $parts[2];
+
+        $awards = [];
+        foreach (AwardCache::getInstance()->getAwards() as $award) {
+            $awards[$award->getSlug()] = $award;
+        }
 
         if (!isset($awards[$slug])) return;
         $award = $awards[$slug];
@@ -33,9 +54,7 @@ class AwardImageAction extends AbstractAction
 
         $this->sendImageHeaders();
         imagepng($image);
-
-        // Just to make sure no further headers are sent
-        die();
+        imagepng($image, self::getCachedFilePath()); // Cache the file
     }
 
     protected function sendImageHeaders()
@@ -53,7 +72,7 @@ class AwardImageAction extends AbstractAction
     {
         if ($number == 0) return;
 
-        $path = dirname(dirname(__DIR__)) . '/images/devices/';
+        $path = WBB_DIR . RELATIVE_WCF_DIR . '/images/devices/';
         $bronzePath = $path . 'oakleaf_bronze.png';
         $silverPath = $path . 'oakleaf_silver.png';
 
