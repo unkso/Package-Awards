@@ -1,11 +1,9 @@
 <?php namespace wcf\data\award;
 
-use wcf\action\AwardImageAction;
 use wcf\data\award\category\AwardCategory;
 use wcf\data\category\Category;
 use wcf\data\DatabaseObject;
 use wcf\system\request\LinkHandler;
-use wcf\system\WCF;
 
 class Award extends DatabaseObject
 {
