@@ -1,9 +1,9 @@
 <?php namespace wcf\data\award;
 
+use wcf\action\AwardImageAction;
 use wcf\data\award\category\AwardCategory;
 use wcf\data\category\Category;
 use wcf\data\DatabaseObject;
-use wcf\system\cache\builder\AwardCacheBuilder;
 use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 
@@ -14,19 +14,6 @@ class Award extends DatabaseObject
 	protected static $databaseTableIndexName = 'awardID';
 
 	protected static $cache = null;
-
-    protected $tiers;
-
-	public static function getAwardByID($awardID)
-	{
-	    $cache = AwardCache::getInstance()->getAwards();
-
-		if (isset($cache[$awardID])) {
-			return $cache[$awardID];
-		}
-
-		return null;
-	}
 
     public static function getAwardByName($name)
     {
@@ -56,6 +43,32 @@ class Award extends DatabaseObject
         return $slug;
     }
 
+    public function getAllPreviousAwards()
+    {
+        if (!$this->isTiered || !$this->replacesAward) {
+            return [];
+        }
+
+        $cache = AwardCache::getInstance()->getAwards();
+
+        $parents = [];
+        $ids = [];
+        $object = $this;
+        while ($object->replacesAward) {
+            // If the award isn't valid or cached, stop the loop
+            if (!isset($cache[$object->replacesAward])) break;
+
+            // Stop any funny business where people try to build loops
+            if (in_array($object->replacesAward, $ids)) break;
+
+            $parent = $cache[$object->replacesAward];
+            $parents[] = $object = $parent;
+            $ids[] = $object->replacesAward;
+        }
+
+        return $parents;
+    }
+
     public static function getURLBase()
     {
         // Make sure it ends with a trailing slash.
@@ -78,12 +91,12 @@ class Award extends DatabaseObject
             return null;
         }
 
-        return '//clanunknownsoldiers.com/award-image/medal/' . $this->getSlug() . '.png';
+        return LinkHandler::getInstance()->getLink('AwardImage', ['forceFrontend' => true, 'isRaw' => true], "medal/{$this->getSlug()}.png");
     }
 
     public function getRibbonURL($devices = 0)
     {
-        return '//clanunknownsoldiers.com/award-image/ribbon/' . $devices . '/' . $this->getSlug() . '.png';
+        return LinkHandler::getInstance()->getLink('AwardImage', ['forceFrontend' => true, 'isRaw' => true], "ribbon/$devices/{$this->getSlug()}.png");
     }
 }
 
