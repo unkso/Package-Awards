@@ -6,6 +6,7 @@
       <controller><![CDATA[wcf\page\AwardListPage]]></controller>
       <position>header</position>
       <parent>wcf.page.training</parent>
+      <permissions>user.clan.canAccessInternalPages</permissions>
       <sortorder>2</sortorder>
     </pagemenuitem>
 

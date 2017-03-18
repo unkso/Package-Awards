@@ -8,6 +8,8 @@ class AwardListPage extends AbstractPage
 {
     public $activeMenuItem = 'wcf.page.training.awards';
 
+    public $neededPermissions = ['user.clan.canAccessInternalPages'];
+
     public $templateName = 'awardList';
 
     public function assignVariables()
