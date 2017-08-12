@@ -3,8 +3,8 @@
 	<packageinformation>
 		<packagename>=US= Awards System</packagename>
 		<packagedescription>An award management system suited for the needs of the Unknown Soldiers.</packagedescription>
-		<version>1.0.6</version>
-		<date>2017-03-17</date>
+		<version>1.1.0</version>
+		<date>2017-08-12</date>
 	</packageinformation>
 	
 	<authorinformation>
@@ -42,6 +42,11 @@
 	<instructions type="update" fromversion="1.0.5">
 		<instruction type="file">files.tar</instruction>
 		<instruction type="pageMenu">xml/pageMenu.xml</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="1.0.6">
+		<instruction type="file">files.tar</instruction>
+		<instruction type="eventListener">xml/eventListener.xml</instruction>
 	</instructions>
 
 </package>
